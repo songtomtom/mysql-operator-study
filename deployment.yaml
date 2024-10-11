@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-mysql-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-mysql-app
+  template:
+    metadata:
+      labels:
+        app: go-mysql-app
+    spec:
+      containers:
+        - name: go-mysql-app
+          image: your-docker-image:tag
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: "mycluster.mysql-cluster.svc.cluster.local"
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
+            - name: DB_NAME
+              value: "mysql"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-mysql-app
+spec:
+  selector:
+    app: go-mysql-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
