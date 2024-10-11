@@ -14,19 +14,19 @@ spec:
     spec:
       containers:
         - name: go-mysql-app
-          image: your-docker-image:tag
+          image: go-mysql-app:v1.0
           ports:
             - containerPort: 8080
           env:
             - name: DB_HOST
-              value: "mycluster.mysql-cluster.svc.cluster.local"
+              value: "my-mysql-innodbcluster.mysql-cluster.svc.cluster.local"
             - name: DB_USER
               value: "root"
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: mysql-secret
-                  key: password
+                  name: my-mysql-innodbcluster-cluster-secret
+                  key: rootPassword
             - name: DB_NAME
               value: "mysql"
 ---

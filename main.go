@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
@@ -11,6 +12,12 @@ import (
 )
 
 func main() {
+	// .env 파일 로드
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	// 데이터베이스 연결 정보
 	dbHost := os.Getenv("DB_HOST")
 	dbUser := os.Getenv("DB_USER")
