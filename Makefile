@@ -1,4 +1,4 @@
-.PHONY: start setup install-operator install-cluster
+.PHONY: start setup install-operator install-cluster create-secret
 
 start:
 	minikube start --kubernetes-version=v1.30.0
@@ -13,7 +13,10 @@ install-operator:
 
 install-cluster:
 	helm install mycluster mysql-operator/mysql-innodbcluster \
-		--namespace mysql-cluster \
-		--create-namespace \
-		--set credentials.root.password='>-0URS4F3P4SS' \
-		--set tls.useSelfSigned=true
+	--set tls.useSelfSigned=true --values credentials.yaml
+
+create-secret:
+	kubectl create secret generic mypwds \
+		--from-literal=rootUser=root \
+		--from-literal=rootHost=% \
+		--from-literal=rootPassword="sakila"

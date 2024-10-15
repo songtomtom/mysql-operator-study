@@ -1,0 +1,8 @@
+names:
+  kind: InnoDBCluster
+  listKind: InnoDBClusterList
+  singular: innodbcluster
+  plural: innodbclusters
+  shortNames:
+    - ic
+    - ics
