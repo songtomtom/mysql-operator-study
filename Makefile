@@ -20,3 +20,4 @@ create-secret:
 		--from-literal=rootUser=root \
 		--from-literal=rootHost=% \
 		--from-literal=rootPassword="sakila"
+
