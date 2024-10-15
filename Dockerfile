@@ -1,14 +1,15 @@
-FROM golang:1.17
+FROM golang:1.22.5
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY go.mod ./
+COPY go.sum ./
 RUN go mod download
 
-COPY . .
+COPY *.go ./
 
-RUN go build -o main .
+RUN go build -o /server
 
 EXPOSE 8080
 
-CMD ["./main"]
+CMD [ "/server" ]

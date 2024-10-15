@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-mysql-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-mysql-app
+  template:
+    metadata:
+      labels:
+        app: go-mysql-app
+    spec:
+      containers:
+        - name: go-mysql-app
+          image: songtomtom/go-mysql-app:v1
+          ports:
+            - containerPort: 8080

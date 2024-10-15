@@ -3,30 +3,18 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/joho/godotenv"
 	"log"
 	"net/http"
-	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func main() {
-	// .env 파일 로드
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
-	// 데이터베이스 연결 정보
-	dbHost := os.Getenv("DB_HOST")
-	dbUser := os.Getenv("DB_USER")
-	dbPass := os.Getenv("DB_PASS")
-	dbName := os.Getenv("DB_NAME")
-
-	// 데이터베이스 연결
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s", dbUser, dbPass, dbHost, dbName)
-	db, err := sql.Open("mysql", dsn)
+	// MySQL 연결 설정
+	db, err := sql.Open(
+		"mysql",
+		"root:sakila@tcp(mysql-cluster-mysql-master.mysql-cluster.svc.cluster.local:3306)/mysql",
+	)
 	if err != nil {
 		log.Fatal(err)
 	}
